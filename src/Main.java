@@ -1,7 +1,15 @@
 import java.util.Scanner;
 
+
 public class Main {
-    private static Process[] processes;
+    public static enum ProcessType {
+        COMPUTE,
+        WRITE,
+        READ,
+        PRINT
+    }
+
+    private static ProcessQueue processes;
     private static final String MENUOPTIONS = "1: Criar processo\n2: Executar proximo\n3: Executar especifico\n4: Salvar arquivo\n5: Carregar arquivo";
 
     public static void main(String[] args) {
@@ -14,6 +22,7 @@ public class Main {
                 if (answer == 0) {// Sair se escolher 0
                     break;
                 } else if (answer == 1) {//Criar processo
+                    //dar opcao de criar writing process pelo pid de um processo existente
                 } else if (answer == 2) {// Executar proximo 
                 } else if (answer == 3) {// Executar especifico
                 } else if (answer == 4) {// Salvar arquivo
@@ -28,9 +37,28 @@ public class Main {
         }
     }
 
-    public static void print() {
-        for(Process process: processes) {//TODO: mudar para comecar no comeco
-            System.out.println(process.toString());
+    public static ProcessQueue getQueue() {
+        return processes;
+    }
+
+    public static void createProcess(ProcessType type) {
+        switch(type) {
+            case READ:
+                new ReadingProcess();
+            case PRINT:
+                new PrintingProcess();
+            default:
+                System.out.println("Esse tipo nao e conhecido pelo sistema");
         }
+        //TODO: criar um objeto de computacao e botar na fila
+    }
+    public static void createProcess(ProcessType type, String expression) {
+        switch(type) {
+            case COMPUTE:
+            case WRITE:
+            default:
+                System.out.println("Esse tipo nao e conhecido pelo sistema");
+        }
+        //TODO: criar um objeto de computacao e botar na fila
     }
 }

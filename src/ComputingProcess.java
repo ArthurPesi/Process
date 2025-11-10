@@ -3,19 +3,27 @@ import java.io.Serializable;
 public class ComputingProcess implements Serializable {
     private static final long serialVersionUID = 0x436F6D70;
     
-    private char operation;
+    private char type;
     private float number1;
     private float number2;
+    private String stringForm;
+    private int pid;
 
-    ComputingProcess(float number1, char operation, float number2) { //TODO: initialize pid
-        this.number1 = number1;
-        this.operation = operation; //TODO: check for valid operation
-        this.number2 = number2;
+    ComputingProcess(int pid, String operation) { //TODO: initialize pid
+        operation = operation.replaceAll("\\s+", "");
+        String[] splitOperation = operation.split("\\+\\-\\/\\*");
+
+        this.number1 = Integer.parseInt(splitOperation[0]);
+        this.type = splitOperation[1].charAt(0); //TODO: check for valid operation
+        this.number2 = Integer.parseInt(splitOperation[2]);
+
+        this.pid = pid;
+        this.stringForm = operation;
     }
     
     public void execute() {
         float result;
-        switch(operation) {
+        switch(type) {
         case '+':
             result = number1 + number2;
         case '-':
@@ -28,11 +36,12 @@ public class ComputingProcess implements Serializable {
             System.out.println("Operation invalid"); //TODO: throw error
             result = 0;
         }
-        System.out.println(number1 + " " + operation + " " + number2 + " = " + result);
+
+        System.out.println(stringForm + " = " + result);
     }
 
     @Override
     public String toString() {//TODO: print pid
-        return number1 + " " + operation + " " + number2;
+        return "{Pid: " + pid + ", Type: ComputingProcess, Operation: " + stringForm + "}";
     }
 }
