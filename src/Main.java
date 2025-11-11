@@ -1,64 +1,109 @@
+import java.io.*;
 import java.util.Scanner;
+import java.util.regex.*;
 
 
 public class Main {
-    public static enum ProcessType {
-        COMPUTE,
-        WRITE,
-        READ,
-        PRINT
-    }
-
-    private static ProcessQueue processes;
-    private static final String MENUOPTIONS = "1: Criar processo\n2: Executar proximo\n3: Executar especifico\n4: Salvar arquivo\n5: Carregar arquivo";
+    private static ProcessQueue queue = new ProcessQueue();
+    private static TranslationUnit translationUnit = new TranslationUnit();
 
     public static void main(String[] args) {
         try {
             Scanner userInput = new Scanner(System.in);
 
+            System.out.println("Type \"help\" to see all the available options. Digite \"br\" para colocar em portugues");
             while (true) { 
-                System.out.println(MENUOPTIONS);
-                int answer = userInput.nextInt();
-                if (answer == 0) {// Sair se escolher 0
+                System.out.print("process machine> ");
+                String answer = userInput.nextLine();
+                String[] parts = answer.toLowerCase().split(" ");
+                String command = parts[0];
+                if (command.equals("exit")) {// Sair se escolher 0
                     break;
-                } else if (answer == 1) {//Criar processo
-                    //dar opcao de criar writing process pelo pid de um processo existente
-                } else if (answer == 2) {// Executar proximo 
-                } else if (answer == 3) {// Executar especifico
-                } else if (answer == 4) {// Salvar arquivo
-                } else if (answer == 5) {// Carregar arquivo
+                } else if (command.equals("br")){
+                    TranslationUnit.setLanguage(TranslationUnit.Language.BR);
+                } else if (command.equals("en")){
+                    TranslationUnit.setLanguage(TranslationUnit.Language.EN);
+                } else if (command.equals("help")){
+                    System.out.println(TranslationUnit.grab("MENU"));
+                }else if (command.equals("create")) {//Criar processo
+                    if(parts[1].charAt(0) != '-') {
+                        System.out.println(TranslationUnit.grab("FLAGERROR"));
+                    }
+
+                    char flag = parts[1].charAt(1);
+
+                    Pattern surroundedByQuotes = Pattern.compile("\"([^\"]*)\""); //Botar essa parte em uma funcao
+                    Matcher match = surroundedByQuotes.matcher(answer);
+                    
+                    String expression = "69/420";
+
+                    if(match.find()) {
+                        expression = match.group(1);
+                     //TODO: nao encontrado
+                    } else {
+                        //System.out.println(TranslationUnit.grab("MISSINGEXPRESSION"));
+                    }
+
+                    Process toCreate = null;
+                    switch(flag) {
+                        case 'c':
+                            toCreate = new ComputingProcess(expression);
+                            break;
+                        case 'w':
+                            toCreate = new WritingProcess(expression);
+                            break;
+                        case 'r':
+                            toCreate = new ReadingProcess(queue);
+                            break;
+                        case 'p':
+                            toCreate = new PrintingProcess(queue);
+                            break;
+                        default:
+                            System.out.println(TranslationUnit.grab("PROCESSTYPEERROR"));
+                    }
+                    queue.registerProcess(toCreate);
+
+                } else if (command.equals("exec") || command.equals("execute")) {// Executar proximo 
+                    if(parts.length > 1) {
+                        if(parts[1].charAt(0) != '-') {
+                            System.out.println(TranslationUnit.grab("FLAGERROR"));
+                            continue;
+                        }
+                        int pid = Integer.parseInt(parts[2]);
+                        //TODO: se n for um numero
+                        //
+                        queue.executeProcessFromPid(pid);
+                    } else {
+                        queue.executeNextProcess();
+                    }
+                } else if (command.equals("save")) {// Salvar arquivo
+                    try {
+                        String projectPath = System.getProperty("java.class.path");
+                        String filePath = projectPath + "/save.txt";
+                        ObjectOutputStream queueStream = new ObjectOutputStream(new FileOutputStream(filePath));
+                        queueStream.writeObject(queue);
+                        queueStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else if (command.equals("load")) {// Carregar arquivo
+                    try {
+                        String projectPath = System.getProperty("java.class.path");
+                        String filePath = projectPath + "/save.txt";
+                        ObjectInputStream queueStream = new ObjectInputStream(new FileInputStream(filePath));
+                        queue = (ProcessQueue) queueStream.readObject();
+                        queueStream.close();
+                    } catch (EOFException e) {
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 } else {
-                    System.out.println("Opcao invalida. Escolha uma das opcoes apresentadas abaixo. Digite apenas o numero");
+                    System.out.println(TranslationUnit.grab("INVALIDCOMMAND"));
                 }
             }
             userInput.close();//Fechar scanner
         } catch (Exception e) {
             e.printStackTrace();//Printar stack em caso de erro
         }
-    }
-
-    public static ProcessQueue getQueue() {
-        return processes;
-    }
-
-    public static void createProcess(ProcessType type) {
-        switch(type) {
-            case READ:
-                new ReadingProcess();
-            case PRINT:
-                new PrintingProcess();
-            default:
-                System.out.println("Esse tipo nao e conhecido pelo sistema");
-        }
-        //TODO: criar um objeto de computacao e botar na fila
-    }
-    public static void createProcess(ProcessType type, String expression) {
-        switch(type) {
-            case COMPUTE:
-            case WRITE:
-            default:
-                System.out.println("Esse tipo nao e conhecido pelo sistema");
-        }
-        //TODO: criar um objeto de computacao e botar na fila
     }
 }

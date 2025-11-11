@@ -1,8 +1,21 @@
 import java.io.Serializable;
 
-public abstract class Process implements Serializable {
+public class Process implements Serializable {
     private static final long serialVersionUID = 0x4545;
-    private long pid;
+    protected int pid;
 
-    public void execute() {}
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    @Override
+    public String toString() {
+        return "Superclasse";
+    }
+
+    public void execute() {
+        System.out.println("Deu errado e executou a superclasse");
+    }
+
+
 }

@@ -1,14 +1,12 @@
 import java.io.Serializable;
 
-public  class PrintingProcess implements Serializable {
+public  class PrintingProcess extends Process {
     private static final long serialVersionUID = 0x5072696E;
-    private int pid;
     private ProcessQueue queue;
 
-    PrintingProcess() {
-        queue = Main.getQueue();
+    PrintingProcess(ProcessQueue queue) {
+        this.queue = queue;
         //TODO: registrar na fila
-        System.out.println("Objeto criado com sucesso: " + toString());
     }
     
     public void execute() {
@@ -17,6 +15,6 @@ public  class PrintingProcess implements Serializable {
 
     @Override
     public String toString() {
-        return "{Pid: " + pid + ", Type: PrintingProcess}";
+        return "{Pid: " + pid + ", Tipo: PrintingProcess}";
     }
 }

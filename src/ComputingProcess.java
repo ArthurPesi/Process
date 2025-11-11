@@ -1,47 +1,51 @@
-import java.io.Serializable;
-
-public class ComputingProcess implements Serializable {
+public class ComputingProcess extends Process {
     private static final long serialVersionUID = 0x436F6D70;
     
-    private char type;
+    private char operation;
     private float number1;
     private float number2;
     private String stringForm;
-    private int pid;
 
-    ComputingProcess(int pid, String operation) { //TODO: initialize pid
-        operation = operation.replaceAll("\\s+", "");
-        String[] splitOperation = operation.split("\\+\\-\\/\\*");
+    ComputingProcess(String expression) { //TODO: initialize pid
+        expression = expression.replaceAll("\\s+", "");
+        String[] splitExpression = expression.split("(?<=[+\\-*/])|(?=[+\\-*/])");
+        if(splitExpression.length != 3) {
+            System.out.println("Ops");
+            //TODO: throw exception
+        }
 
-        this.number1 = Integer.parseInt(splitOperation[0]);
-        this.type = splitOperation[1].charAt(0); //TODO: check for valid operation
-        this.number2 = Integer.parseInt(splitOperation[2]);
+        this.number1 = Integer.parseInt(splitExpression[0]);
+        this.operation = splitExpression[1].charAt(0); //TODO: check for valid operation
+        this.number2 = Integer.parseInt(splitExpression[2]);
 
-        this.pid = pid;
-        this.stringForm = operation;
+        this.stringForm = expression;
     }
     
     public void execute() {
         float result;
-        switch(type) {
+        switch(operation) {
         case '+':
             result = number1 + number2;
+            break;
         case '-':
             result = number1 - number2;
+            break;
         case '*':
             result = number1 * number2;
+            break;
         case '/':
             result = number1 / number2;
+            break;
         default:
             System.out.println("Operation invalid"); //TODO: throw error
             result = 0;
         }
 
-        System.out.println(stringForm + " = " + result);
+        System.out.println("Resultado da operacao: " + stringForm + " = " + result);
     }
 
     @Override
     public String toString() {//TODO: print pid
-        return "{Pid: " + pid + ", Type: ComputingProcess, Operation: " + stringForm + "}";
+        return "{Pid: " + pid + ", Tipo: ComputingProcess, Operacao: " + stringForm + "}";
     }
 }

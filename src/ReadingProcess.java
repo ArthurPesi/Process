@@ -1,11 +1,12 @@
 import java.io.*;
 
-public class ReadingProcess implements Serializable {
+public class ReadingProcess extends Process {
     private static final long serialVersionUID = 0x52656164;
-    private int pid;
     private String filePath;
+    private ProcessQueue queue;
 
-    ReadingProcess() {
+    ReadingProcess(ProcessQueue queue) {
+        this.queue = queue;
         String projectPath = System.getProperty("java.class.path");
         filePath = projectPath + "/computation.txt";
         //TODO: se colocar na fila
@@ -25,7 +26,9 @@ public class ReadingProcess implements Serializable {
 
             String line;
             while((line = reader.readLine()) != null) {
-                Main.createProcess(Main.ProcessType.COMPUTE, line);
+                ComputingProcess cProcess = new ComputingProcess(line);
+                queue.registerProcess(cProcess);
+                //TODO: adicionar esse daqui na fila
                 ++count;
             }
 
@@ -38,7 +41,7 @@ public class ReadingProcess implements Serializable {
 
     @Override
     public String toString() {
-        return "{Pid: " + pid + "Type: ReadingProcess}";
+        return "{Pid: " + pid + ", Tipo: ReadingProcess}";
     }
 
 
