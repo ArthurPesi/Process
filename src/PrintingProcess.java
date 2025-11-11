@@ -15,6 +15,6 @@ public  class PrintingProcess extends Process {
 
     @Override
     public String toString() {
-        return "{Pid: " + pid + ", Tipo: PrintingProcess}";
+        return "{Pid: " + pid + ", " + TranslationUnit.grab("TYPE") + ": PrintingProcess}";
     }
 }

@@ -6,6 +6,7 @@ import java.util.regex.*;
 public class Main {
     private static ProcessQueue queue = new ProcessQueue();
     private static TranslationUnit translationUnit = new TranslationUnit();
+    private static String lastAnswer;
 
     public static void main(String[] args) {
         try {
@@ -15,10 +16,18 @@ public class Main {
             while (true) { 
                 System.out.print("process machine> ");
                 String answer = userInput.nextLine();
+
+                if(answer.equals("!!")) {
+                    answer = lastAnswer;
+                    System.out.println(answer);
+                }
+
                 String[] parts = answer.toLowerCase().split(" ");
                 String command = parts[0];
                 if (command.equals("exit")) {// Sair se escolher 0
                     break;
+                } else if (command.equals("clear")){
+                    System.out.print("\033[2J\033[1;1H");
                 } else if (command.equals("br")){
                     TranslationUnit.setLanguage(TranslationUnit.Language.BR);
                 } else if (command.equals("en")){
@@ -61,7 +70,11 @@ public class Main {
                         default:
                             System.out.println(TranslationUnit.grab("PROCESSTYPEERROR"));
                     }
-                    queue.registerProcess(toCreate);
+
+                    if(toCreate != null) {
+                        queue.registerProcess(toCreate);
+                        System.out.println(TranslationUnit.grab("CREATESUCCESS") + toCreate.toString());
+                    }
 
                 } else if (command.equals("exec") || command.equals("execute")) {// Executar proximo 
                     if(parts.length > 1) {
@@ -100,6 +113,8 @@ public class Main {
                 } else {
                     System.out.println(TranslationUnit.grab("INVALIDCOMMAND"));
                 }
+
+                lastAnswer = answer;
             }
             userInput.close();//Fechar scanner
         } catch (Exception e) {

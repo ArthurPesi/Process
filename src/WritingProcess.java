@@ -20,7 +20,7 @@ public class WritingProcess extends Process {
             writer.append(operation + '\n');
 
             writer.close();
-            System.out.println("Operacao escrita com sucesso: " + operation);
+            System.out.println(TranslationUnit.grab("WRITESUCCESS") + operation);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,6 +28,8 @@ public class WritingProcess extends Process {
 
     @Override
     public String toString() {
-        return "{Pid: " + pid + ", Tipo: WritingProcess, Operation: " + operation + "}";
+        String type = TranslationUnit.grab("TYPE");
+        String sOperation = TranslationUnit.grab("OPERATION");
+        return "{Pid: " + pid + ", " + type +  ": WritingProcess, " + sOperation  + ": " + operation + "}";
     }
 }

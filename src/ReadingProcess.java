@@ -33,7 +33,7 @@ public class ReadingProcess extends Process {
             }
 
             reader.close();
-            System.out.println(count + " operacoes criadas com sucesso");
+            System.out.println(count + TranslationUnit.grab("READSUCCESS"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class ReadingProcess extends Process {
 
     @Override
     public String toString() {
-        return "{Pid: " + pid + ", Tipo: ReadingProcess}";
+        return "{Pid: " + pid + ", " + TranslationUnit.grab("TYPE") + ": ReadingProcess}";
     }
 
 

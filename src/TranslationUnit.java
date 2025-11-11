@@ -18,13 +18,26 @@ public class TranslationUnit {
         translations[0].setText("MISSINGEXPRESSION", MISSINGEXPRESSION[0]);
         translations[0].setText("INVALIDCOMMAND", INVALIDCOMMAND[0]);
         translations[0].setText("PRINTQUEUE", PRINTQUEUE[0]);
-
+        translations[0].setText("TYPE", TYPE[0]);
+        translations[0].setText("READSUCCESS", READSUCCESS[0]);
+        translations[0].setText("CREATESUCCESS", CREATESUCCESS[0]);
+        translations[0].setText("WRITESUCCESS", WRITESUCCESS[0]);
+        translations[0].setText("CEMPUTESUCCESS", COMPUTESUCCESS[0]);
+        translations[0].setText("OPERATION", OPERATION[0]);
+        translations[0].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[0]);
         translations[1].setText("MENU", MENUDEAJUDA);
         translations[1].setText("FLAGERROR", FLAGERROR[1]);
         translations[1].setText("PROCESSTYPEERROR", PROCESSTYPEERROR[1]);
         translations[1].setText("MISSINGEXPRESSION", MISSINGEXPRESSION[1]);
         translations[1].setText("INVALIDCOMMAND", INVALIDCOMMAND[1]);
         translations[1].setText("PRINTQUEUE", PRINTQUEUE[1]);
+        translations[1].setText("TYPE", TYPE[1]);
+        translations[1].setText("READSUCCESS", READSUCCESS[1]);
+        translations[1].setText("CREATESUCCESS", CREATESUCCESS[1]);
+        translations[1].setText("WRITESUCCESS", WRITESUCCESS[1]);
+        translations[1].setText("COMPUTESUCCESS", COMPUTESUCCESS[1]);
+        translations[1].setText("OPERATION", OPERATION[1]);
+        translations[1].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[1]);
     }
 
     public static void setLanguage(Language language) {
@@ -76,6 +89,20 @@ public class TranslationUnit {
                                        "exit\n" +
                                        "   Encerra o programa. Simples assim.";
     private static final String[] FLAGERROR = {"Invalid flag!", "Flag invalida!"};
+
+    private static final String[] TYPE = {"Type", "Tipo"};
+
+    private static final String[] READSUCCESS = {" processes created", " processos criados com sucesso"};
+
+    private static final String[] CREATESUCCESS= {"Process added to the queue: ", "Processo adicionado na fila: "};
+
+    private static final String[] WRITESUCCESS = {"Expresson written to file: ", "Expressao salva no arquivo: "};
+
+    private static final String[] COMPUTESUCCESS = {"Final result: ", "Resultado da conta: "};
+
+    private static final String[] OPERATION = {"Operation", "Operacao"};
+
+    private static final String[] INVALIDEXPRESSION = {"Process could not resolve due to malformed expression: ", "A expressao do processo estava mal formulada e ele nao foi resolvido: "};
     
     private static final String[] PROCESSTYPEERROR = {"Please choose a valid type of process", "Escolha um tipo de processo valido"};
     private static final String[] MISSINGEXPRESSION = {"Please insert an expression to create this type of process.", "Esse tipo de processo precisa de uma expressao para ser criado"};

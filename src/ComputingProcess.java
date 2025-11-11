@@ -37,15 +37,17 @@ public class ComputingProcess extends Process {
             result = number1 / number2;
             break;
         default:
-            System.out.println("Operation invalid"); //TODO: throw error
+            System.out.println(TranslationUnit.grab("INVALIDEXPRESSION") + stringForm); //TODO: throw error
             result = 0;
         }
 
-        System.out.println("Resultado da operacao: " + stringForm + " = " + result);
+        System.out.println(TranslationUnit.grab("COMPUTESUCCESS") + stringForm + " = " + result);
     }
 
     @Override
     public String toString() {//TODO: print pid
-        return "{Pid: " + pid + ", Tipo: ComputingProcess, Operacao: " + stringForm + "}";
+        String type = TranslationUnit.grab("TYPE");
+        String sOperation = TranslationUnit.grab("OPERATION");
+        return "{Pid: " + pid + ", " + type + ": ComputingProcess, " + sOperation + ": " + stringForm + "}";
     }
 }
