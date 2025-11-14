@@ -22,9 +22,10 @@ public class TranslationUnit {
         translations[0].setText("READSUCCESS", READSUCCESS[0]);
         translations[0].setText("CREATESUCCESS", CREATESUCCESS[0]);
         translations[0].setText("WRITESUCCESS", WRITESUCCESS[0]);
-        translations[0].setText("CEMPUTESUCCESS", COMPUTESUCCESS[0]);
+        translations[0].setText("COMPUTESUCCESS", COMPUTESUCCESS[0]);
         translations[0].setText("OPERATION", OPERATION[0]);
         translations[0].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[0]);
+        translations[0].setText("INVALIDPID", INVALIDPID[0]);
         translations[1].setText("MENU", MENUDEAJUDA);
         translations[1].setText("FLAGERROR", FLAGERROR[1]);
         translations[1].setText("PROCESSTYPEERROR", PROCESSTYPEERROR[1]);
@@ -38,6 +39,7 @@ public class TranslationUnit {
         translations[1].setText("COMPUTESUCCESS", COMPUTESUCCESS[1]);
         translations[1].setText("OPERATION", OPERATION[1]);
         translations[1].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[1]);
+        translations[1].setText("INVALIDPID", INVALIDPID[1]);
     }
 
     public static void setLanguage(Language language) {
@@ -102,7 +104,7 @@ public class TranslationUnit {
 
     private static final String[] OPERATION = {"Operation", "Operacao"};
 
-    private static final String[] INVALIDEXPRESSION = {"Process could not resolve due to malformed expression: ", "A expressao do processo estava mal formulada e ele nao foi resolvido: "};
+    private static final String[] INVALIDEXPRESSION = {"Invalid expression. Expected format: \"1+1\"", "Expressao invalida. Formato esperado: \"1+1\""};
     
     private static final String[] PROCESSTYPEERROR = {"Please choose a valid type of process", "Escolha um tipo de processo valido"};
     private static final String[] MISSINGEXPRESSION = {"Please insert an expression to create this type of process.", "Esse tipo de processo precisa de uma expressao para ser criado"};
@@ -110,4 +112,6 @@ public class TranslationUnit {
     private static final String[] INVALIDCOMMAND = {"Invalid command. Type help to list available commands.", "Comando invalido. Digite help para listar os comandos disponiveis."};
 
     private static final String[] PRINTQUEUE = {"Current queue state: ", "Estado atual da fila: "};
+
+    private static final String[] INVALIDPID = {"Pid inserted does not correspond to any registered process.", "Pid escolhido nao corresponde a nenhum processo do sistema."};
 }

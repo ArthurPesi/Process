@@ -8,6 +8,10 @@ public class Process implements Serializable {
         this.pid = pid;
     }
 
+    public int getPid() {
+        return pid;
+    }
+
     @Override
     public String toString() {
         return "Superclasse";

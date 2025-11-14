@@ -41,16 +41,16 @@ public class Main {
 
                     char flag = parts[1].charAt(1);
 
-                    Pattern surroundedByQuotes = Pattern.compile("\"([^\"]*)\""); //Botar essa parte em uma funcao
+                    Pattern surroundedByQuotes = Pattern.compile("\"([^\"]*)\""); 
                     Matcher match = surroundedByQuotes.matcher(answer);
                     
                     String expression = "69/420";
 
                     if(match.find()) {
                         expression = match.group(1);
-                     //TODO: nao encontrado
-                    } else {
-                        //System.out.println(TranslationUnit.grab("MISSINGEXPRESSION"));
+                    } else if (flag == 'c' || flag == 'w') {
+                        System.out.println(TranslationUnit.grab("INVALIDEXPRESSION"));
+                        continue;
                     }
 
                     Process toCreate = null;
@@ -110,7 +110,10 @@ public class Main {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                } else {
+                } else if (command.equals("print")) {
+                    queue.printState();
+                    //TODO: dar opcao de printar por pid
+                }else {
                     System.out.println(TranslationUnit.grab("INVALIDCOMMAND"));
                 }
 
