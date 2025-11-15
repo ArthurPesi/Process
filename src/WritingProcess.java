@@ -1,5 +1,4 @@
 import java.io.*;
-import java.io.Serializable;
 
 public class WritingProcess extends Process {
     private static final long serialVersionUID = 0x57726974;
@@ -9,17 +8,19 @@ public class WritingProcess extends Process {
     WritingProcess(String expression) {
         this.operation = expression;
     
+        //Registrar caminho do arquivo a ser escrito
         String projectPath = System.getProperty("java.class.path");
         filePath = projectPath + "/computation.txt";
     }
 
     public void execute() {
         try {
+            //Abrir e escrever arquivo
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
             writer.append(operation + '\n');
 
-            writer.close();
+            writer.close();//Fechar arquivo
             System.out.println(TranslationUnit.grab("WRITESUCCESS") + operation);
         } catch (IOException e) {
             e.printStackTrace();

@@ -3,15 +3,16 @@ import java.io.*;
 public class ReadingProcess extends Process {
     private static final long serialVersionUID = 0x52656164;
     private String filePath;
+
+    //Referencia para a fila de processos
     private ProcessQueue queue;
 
     ReadingProcess(ProcessQueue queue) {
         this.queue = queue;
+
+        //Registrar caminho do arquivo a ser escrito
         String projectPath = System.getProperty("java.class.path");
         filePath = projectPath + "/computation.txt";
-        //TODO: se colocar na fila
-        //retornar pid quando entra e botar aqui
-        //printar o objeto criado
     }
 
     public void setPid(int pid) {
@@ -20,20 +21,31 @@ public class ReadingProcess extends Process {
 
     
     public void execute() {
-        int count = 0;
+        int processCount = 0;//Contagem de quantos processos sao registrados ao ler o arquivo
         try {
+            //Abrir e ler arquivo
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
             String line;
             while((line = reader.readLine()) != null) {
                 ComputingProcess cProcess = new ComputingProcess(line);
+                //Adicionar processos na fila
                 queue.registerProcess(cProcess);
-                //TODO: adicionar esse daqui na fila
-                ++count;
+                ++processCount;
             }
 
-            reader.close();
-            System.out.println(count + TranslationUnit.grab("READSUCCESS"));
+            reader.close();//Fechar arquivo
+
+            //Botar um texto no plural ou no singular dependendo do numero de processos
+            String created;
+            if (processCount == 1) {
+                created = TranslationUnit.grab("READSINGLE");
+            } else {
+                created = TranslationUnit.grab("READMULTIPLE");
+            }
+                
+            //mostrar mensagem ao usuario
+            System.out.println(TranslationUnit.grab("READSUCCESS") + processCount + created);
         } catch (IOException e) {
             e.printStackTrace();
         }

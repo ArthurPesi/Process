@@ -1,17 +1,25 @@
 public class TranslationUnit {
+    //Enumerador com as linguagens disponiveis
     enum Language {
         EN,
         BR
     }
+
     private static Translation[] translations;
+
+    //Lingua atual do sistema (padrao ingles)
     private static Language currentLanguage = Language.EN;
 
     TranslationUnit() {
+        //Criar um objeto de traducao para cada valor no enumerador
         translations = new Translation[Language.values().length];
+
         Language[] languages = Language.values();
         for(int i = 0; i < languages.length; i++) {
             translations[i] = new Translation();
         }
+
+        //Colocar os textos nas traducoes
         translations[0].setText("MENU", HELPMENU);
         translations[0].setText("FLAGERROR", FLAGERROR[0]);
         translations[0].setText("PROCESSTYPEERROR", PROCESSTYPEERROR[0]);
@@ -20,12 +28,17 @@ public class TranslationUnit {
         translations[0].setText("PRINTQUEUE", PRINTQUEUE[0]);
         translations[0].setText("TYPE", TYPE[0]);
         translations[0].setText("READSUCCESS", READSUCCESS[0]);
+        translations[0].setText("READSINGLE", READSINGLE[0]);
+        translations[0].setText("READMULTIPLE", READMULTIPLE[0]);
         translations[0].setText("CREATESUCCESS", CREATESUCCESS[0]);
         translations[0].setText("WRITESUCCESS", WRITESUCCESS[0]);
         translations[0].setText("COMPUTESUCCESS", COMPUTESUCCESS[0]);
         translations[0].setText("OPERATION", OPERATION[0]);
         translations[0].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[0]);
         translations[0].setText("INVALIDPID", INVALIDPID[0]);
+        translations[0].setText("QUEUEPRINT", QUEUEPRINT[0]);
+        translations[0].setText("INVALIDNUMBER", INVALIDNUMBER[0]);
+
         translations[1].setText("MENU", MENUDEAJUDA);
         translations[1].setText("FLAGERROR", FLAGERROR[1]);
         translations[1].setText("PROCESSTYPEERROR", PROCESSTYPEERROR[1]);
@@ -34,23 +47,29 @@ public class TranslationUnit {
         translations[1].setText("PRINTQUEUE", PRINTQUEUE[1]);
         translations[1].setText("TYPE", TYPE[1]);
         translations[1].setText("READSUCCESS", READSUCCESS[1]);
+        translations[1].setText("READSINGLE", READSINGLE[1]);
+        translations[1].setText("READMULTIPLE", READMULTIPLE[1]);
         translations[1].setText("CREATESUCCESS", CREATESUCCESS[1]);
         translations[1].setText("WRITESUCCESS", WRITESUCCESS[1]);
         translations[1].setText("COMPUTESUCCESS", COMPUTESUCCESS[1]);
         translations[1].setText("OPERATION", OPERATION[1]);
         translations[1].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[1]);
         translations[1].setText("INVALIDPID", INVALIDPID[1]);
+        translations[1].setText("QUEUEPRINT", QUEUEPRINT[1]);
+        translations[1].setText("INVALIDNUMBER", INVALIDNUMBER[1]);
     }
 
+    //Selecionar lingua
     public static void setLanguage(Language language) {
         currentLanguage = language;
     }
 
+    //Retornar texto na lingua atualmenet selecionada
     public static String grab(String text) {
         return translations[currentLanguage.ordinal()].getText(text);
     }
 
-            
+    //Variaveis com os valores dos textos
     private final static String HELPMENU = "help\n  show this menu\n\n" +
                                             "create\n" +
                                             "   Adds a new process to the queue. You must use a flag to define the type of process:\n" +
@@ -68,6 +87,14 @@ public class TranslationUnit {
                                             "   Save the current state of the queue to a file\n\n" +
                                             "load\n" +
                                             "   Load the last state saved with the save option\n\n" +
+                                            "en, br\n" +
+                                            "   changes the current language to the one selected\n\n" +
+                                            "clear\n" +
+                                            "   clears the screen\n\n" +
+                                            "print\n" +
+                                            "   prints the current state of the queue. Same result as executing a printing process\n" +
+                                            "!!\n" +
+                                            "   repeat last command executed\n\n" +
                                             "exit\n" +
                                             "   Quit. As simple as it sounds.";
 
@@ -88,13 +115,29 @@ public class TranslationUnit {
                                        "   Salva o estado atual da fila em um arquivo\n\n" +
                                        "load\n" +
                                        "   Carrega o ultimo estado salvo com a opcao save\n\n" +
+                                        "en, br\n" +
+                                        "   muda a lingua atual para a selecionada\n\n" +
+                                        "clear\n" +
+                                        "   limpa a tela\n\n" +
+                                        "print\n" +
+                                        "   imprime o estado da fila. Mesma coisa que executar um processo de impressao\n\n" +
+                                        "!!\n" +
+                                        "   repete o ultimo comando executado\n\n" +
                                        "exit\n" +
                                        "   Encerra o programa. Simples assim.";
     private static final String[] FLAGERROR = {"Invalid flag!", "Flag invalida!"};
 
+    private static final String[] QUEUEPRINT = {"Current queue status:", "Estado da fila:"};
+
     private static final String[] TYPE = {"Type", "Tipo"};
 
-    private static final String[] READSUCCESS = {" processes created", " processos criados com sucesso"};
+    private static final String[] INVALIDNUMBER= {"Please insert a valid number.", "Por favor insira um numero valido"};
+
+    private static final String[] READSUCCESS= {"Reading operation successful: ", "Operacao de leitura concluida com sucesso: "};
+
+    private static final String[] READSINGLE= {" process created", " processo criados com sucesso"};
+
+    private static final String[] READMULTIPLE = {" processes created", " processos criados com sucesso"};
 
     private static final String[] CREATESUCCESS= {"Process added to the queue: ", "Processo adicionado na fila: "};
 

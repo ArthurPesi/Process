@@ -6,16 +6,14 @@ public class ComputingProcess extends Process {
     private float number2;
     private String stringForm;
 
-    ComputingProcess(String expression) { //TODO: initialize pid
+    ComputingProcess(String expression) { 
         expression = expression.replaceAll("\\s+", "");
+
+        //Dividir a expressao no sinal de +,-,/ ou *
         String[] splitExpression = expression.split("(?<=[+\\-*/])|(?=[+\\-*/])");
-        if(splitExpression.length != 3) {
-            System.out.println("Ops");
-            //TODO: throw exception
-        }
 
         this.number1 = Integer.parseInt(splitExpression[0]);
-        this.operation = splitExpression[1].charAt(0); //TODO: check for valid operation
+        this.operation = splitExpression[1].charAt(0); 
         this.number2 = Integer.parseInt(splitExpression[2]);
 
         this.stringForm = expression;
@@ -37,8 +35,8 @@ public class ComputingProcess extends Process {
             result = number1 / number2;
             break;
         default:
-            System.out.println(TranslationUnit.grab("INVALIDEXPRESSION") + stringForm); //TODO: throw error
-            result = 0;
+            System.out.println(TranslationUnit.grab("INVALIDEXPRESSION") + stringForm);
+            return;
         }
 
         System.out.println(TranslationUnit.grab("COMPUTESUCCESS") + stringForm + " = " + result);
