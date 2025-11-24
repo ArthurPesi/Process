@@ -8,13 +8,14 @@ public class ComputingProcess extends Process {
 
     ComputingProcess(String expression) { 
         expression = expression.replaceAll("\\s+", "");
+        expression = expression.replaceAll("\"", "");
 
         //Dividir a expressao no sinal de +,-,/ ou *
         String[] splitExpression = expression.split("(?<=[+\\-*/])|(?=[+\\-*/])");
 
-        this.number1 = Integer.parseInt(splitExpression[0]);
+        this.number1 = Float.parseFloat(splitExpression[0]);
         this.operation = splitExpression[1].charAt(0); 
-        this.number2 = Integer.parseInt(splitExpression[2]);
+        this.number2 = Float.parseFloat(splitExpression[2]);
 
         this.stringForm = expression;
     }
@@ -43,7 +44,7 @@ public class ComputingProcess extends Process {
     }
 
     @Override
-    public String toString() {//TODO: print pid
+    public String toString() {
         String type = TranslationUnit.grab("TYPE");
         String sOperation = TranslationUnit.grab("OPERATION");
         return "{Pid: " + pid + ", " + type + ": ComputingProcess, " + sOperation + ": " + stringForm + "}";

@@ -35,8 +35,8 @@ public class TranslationUnit {
         translations[0].setText("COMPUTESUCCESS", COMPUTESUCCESS[0]);
         translations[0].setText("OPERATION", OPERATION[0]);
         translations[0].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[0]);
+        translations[0].setText("EMPTYQUEUE", EMPTYQUEUE[0]);
         translations[0].setText("INVALIDPID", INVALIDPID[0]);
-        translations[0].setText("QUEUEPRINT", QUEUEPRINT[0]);
         translations[0].setText("INVALIDNUMBER", INVALIDNUMBER[0]);
 
         translations[1].setText("MENU", MENUDEAJUDA);
@@ -54,8 +54,8 @@ public class TranslationUnit {
         translations[1].setText("COMPUTESUCCESS", COMPUTESUCCESS[1]);
         translations[1].setText("OPERATION", OPERATION[1]);
         translations[1].setText("INVALIDEXPRESSION", INVALIDEXPRESSION[1]);
+        translations[1].setText("EMPTYQUEUE", EMPTYQUEUE[1]);
         translations[1].setText("INVALIDPID", INVALIDPID[1]);
-        translations[1].setText("QUEUEPRINT", QUEUEPRINT[1]);
         translations[1].setText("INVALIDNUMBER", INVALIDNUMBER[1]);
     }
 
@@ -127,7 +127,7 @@ public class TranslationUnit {
                                        "   Encerra o programa. Simples assim.";
     private static final String[] FLAGERROR = {"Invalid flag!", "Flag invalida!"};
 
-    private static final String[] QUEUEPRINT = {"Current queue status:", "Estado da fila:"};
+    private static final String[] EMPTYQUEUE = {"There are no processes left to execute.", "Nao ha processos a serem executados."};
 
     private static final String[] TYPE = {"Type", "Tipo"};
 

@@ -13,8 +13,7 @@ public abstract class Process implements Serializable {
         return pid;
     }
 
-    public void execute() {
-    }
+    public abstract void execute();
 
 
 }

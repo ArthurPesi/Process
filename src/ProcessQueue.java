@@ -30,6 +30,10 @@ public class ProcessQueue implements Serializable {
         //Pegar proximo processo e tirar ele da fila
         Process next = processList.poll();
 
+        if(next == null) {
+            System.out.println(TranslationUnit.grab("EMPTYQUEUE"));
+            return;
+        }
         //Remover processo do dicionario
         int pid = next.getPid();
         processMap.remove(pid);
@@ -39,7 +43,7 @@ public class ProcessQueue implements Serializable {
 
     //Imprimir fila
     public void printState() {
-        System.out.println("Estado da fila:");
+        System.out.println(TranslationUnit.grab("PRINTQUEUE"));
 
         //Executar o tostring em cada um dos processos da fila em ordem
         processList.forEach( (process) -> {System.out.println(process.toString()); } );

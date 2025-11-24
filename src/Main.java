@@ -214,12 +214,21 @@ public class Main {
     //Funcao para encontrar expressoes entre aspas duplas
     public static String findQuotedExpression(String input) {
 
-        //Regex que encontra qualquer quantidade de caracteres entre aspas duplas
-        Pattern surroundedByQuotes = Pattern.compile("\"([^\"]*)\""); 
-        Matcher match = surroundedByQuotes.matcher(input);
+        //Regex para 0 ou mais espacos em branco
+        final String whiteSpace = "\\s*";
+        //Regex para um ou mais digitos (inteiro) opcionalmente seguidos de um . com mais digitos (numero decimal)
+        final String number = "(\\d+(?:\\.\\d+)?)";
+        //Regex para exatamente um dos quatro operadores aceitos
+        final String operator = "([+\\-*/])";
+        //Regex para encontrar uma expressao matematica entre aspas duplas (com ou sem espacos em branco)
+        final String expression = "\"" + whiteSpace + number + whiteSpace + operator + whiteSpace + number + whiteSpace + "\"";
+
+        Pattern expressionRegex = Pattern.compile(expression);
+
+        Matcher validExpression = expressionRegex.matcher(input);
         
-        if(match.find()) {
-            return match.group(1);
+        if(validExpression.find()) {
+            return validExpression.group();
         } else {
             System.out.println(TranslationUnit.grab("INVALIDEXPRESSION"));
             return null;
